@@ -1,4 +1,4 @@
-package lab6;
+package lab7;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -86,11 +86,25 @@ public class CSVReader {
     }
 
     double getDouble(String columnLabel) {
+        return getDouble(columnLabel, 0.0);
+    }
+
+    double getDouble(String columnLabel, double def) {
+        if (isMissing(columnLabel)) {
+            return def;
+        }
         int arrIndex = columnLabelsToInt.get(columnLabel);
         return Double.parseDouble(current[arrIndex]);
     }
 
     double getDouble(int columnIndex) {
+        return getDouble(columnIndex, 0.0);
+    }
+
+    double getDouble(int columnIndex, double def) {
+        if (isMissing(columnIndex)) {
+            return def;
+        }
         return Double.parseDouble(current[columnIndex]);
     }
 
