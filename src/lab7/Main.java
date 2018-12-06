@@ -5,14 +5,20 @@ import java.util.Locale;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        CSVReader reader1 = new CSVReader("src/lab7/admin-units.csv",",",true);
+        //CSVReader reader = new CSVReader("src/lab7/admin-units.csv",",",true);
+        /*CSVReader reader = new CSVReader("src\\lab7\\admin-units.csv", ",", true);
         for (int i = 0; i< 100; i++) {
-            reader1.next();
-            String name = reader1.get("name");
-            //double population = reader1.getDouble("population");
-            int admin_level = reader1.getInt("admin_level");
+            reader.next();
+            String name = reader.get("name");
+            double population = reader.getDouble("population");
+            int admin_level = reader.getInt("admin_level");
 
             System.out.printf(Locale.US,"%s %d\n",name, admin_level);
-        }
+        }*/
+
+        AdminUnitList unitsList = new AdminUnitList();
+        unitsList.read("src\\lab7\\admin-units.csv");
+
+        unitsList.list(System.out, 10, 10);
     }
 }
