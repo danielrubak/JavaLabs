@@ -35,8 +35,22 @@ public class AdminUnit {
                 ", population=" + population +
                 ", area=" + area +
                 ", density=" + density +
-                ", parent=" + parentName +
+                ", parent='" + parentName + '\'' +
                 '}';
+    }
+
+    public double fixMissingValues() {
+        if( this.getDensity() != -1 ) {
+            return this.getDensity();
+        } else {
+            if( this.getParent() == null ) {
+                return -1;
+            } else {
+                this.setDensity(this.getParent().fixMissingValues());
+                this.setPopulation(this.getDensity() * this.getArea());
+                return this.getDensity();
+            }
+        }
     }
 
     public void setName(String name) {

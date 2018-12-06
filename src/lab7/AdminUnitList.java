@@ -42,6 +42,7 @@ public class AdminUnitList {
                     child.setParent(unit);
                 }
             }
+            unit.fixMissingValues();
         }
     }
 
@@ -57,16 +58,21 @@ public class AdminUnitList {
         }
     }
 
-    /**
-     * Zwraca nową listę zawierającą te obiekty AdminUnit, których nazwa pasuje do wzorca
-     * @param pattern - wzorzec dla nazwy
-     * @param regex - jeśli regex=true, użyj finkcji String matches(); jeśli false użyj funkcji contains()
-     * @return podzbiór elementów, których nazwy spełniają kryterium wyboru
-     */
     AdminUnitList selectByName(String pattern, boolean regex){
         AdminUnitList ret = new AdminUnitList();
-        // przeiteruj po zawartości units
-        // jeżeli nazwa jednostki pasuje do wzorca dodaj do ret
+
+        for( AdminUnit unit : units ) {
+            if ( regex == true ) {
+                if ( unit.getName().matches(pattern)) {
+                    ret.units.add(unit);
+                }
+            } else {
+                if ( unit.getName().contains(pattern)) {
+                    ret.units.add(unit);
+                }
+            }
+        }
+
         return ret;
     }
 }

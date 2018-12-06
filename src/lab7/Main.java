@@ -19,6 +19,10 @@ public class Main {
         AdminUnitList unitsList = new AdminUnitList();
         unitsList.read("src\\lab7\\admin-units.csv");
 
-        unitsList.list(System.out, 10, 10);
+        //unitsList.list(System.out, 10, 10);
+
+        AdminUnitList unitsSelectedByName = new AdminUnitList();
+        unitsSelectedByName = unitsList.selectByName(".*powiat.*", true);
+        unitsSelectedByName.list(System.out);
     }
 }
