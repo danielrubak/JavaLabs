@@ -91,4 +91,18 @@ public class AdminUnitList {
 
         return ret;
     }
+
+    AdminUnitList getNeighbors(AdminUnit unit, double maxdistance){
+        AdminUnitList result = new AdminUnitList();
+        for (AdminUnit existsUnit : this.units ) {
+            if ( existsUnit != unit ) {
+                try {
+                    if ( existsUnit.getBbox().distanceTo(unit.getBbox()) <= maxdistance ) {
+                        result.units.add(existsUnit);
+                    }
+                } catch (RuntimeException ignored) {}
+            }
+        }
+        return result;
+    }
 }

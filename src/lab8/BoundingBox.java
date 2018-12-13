@@ -33,12 +33,11 @@ public class BoundingBox {
                 ymax = y;
             if (y < ymin)
                 ymin = y;
-            isEmpty = false;
         } else {
             this.xmax = this.xmin = x;
             this.ymax = this.ymin = y;
-            isEmpty = false;
         }
+        isEmpty = false;
     }
 
     boolean contains(double x, double y) {
@@ -129,7 +128,9 @@ public class BoundingBox {
     public String getWKT() {
         if (this.isEmpty())
             throw new RuntimeException("BoundingBox is empty!");
-        return String.format(Locale.US,"LINESTRING(%f %f, %f %f, %f %f, %f %f)",
-                xmin, ymin, xmin, ymax, xmax, ymin, xmax, ymax);
+        return String.format(Locale.US,"LINESTRING(%f %f, %f %f, %f %f, %f %f, %f %f)",
+                xmin, ymin, xmin, ymax, xmax, ymin, xmax, ymax, xmin, ymin);
     }
+
+
 }
