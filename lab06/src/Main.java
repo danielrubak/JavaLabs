@@ -14,7 +14,6 @@ public class Main {
             CSVfiles[3] = "src\\csv_utc8\\elec.csv";
             CSVfiles[4] = "src\\csv_utc8\\missing-values.csv";
             CSVfiles[5] = "src\\csv_utc8\\titanic-part.csv";
-
         } else if ( OS.indexOf("nix") >= 0 || OS.indexOf("nux") >= 0 || OS.indexOf("aix") > 0 ) {
             CSVfiles[0] = "src/csv_utc8/no-header.csv";
             CSVfiles[1] = "src/csv_utc8/with-header.csv";
@@ -22,7 +21,6 @@ public class Main {
             CSVfiles[3] = "src/csv_utc8/elec.csv";
             CSVfiles[4] = "src/csv_utc8/missing-values.csv";
             CSVfiles[5] = "src/csv_utc8/titanic-part.csv";
-
         }
 
         int [] testsToRun = {0, 0, 0, 0, 1, 0};
@@ -90,7 +88,6 @@ public class Main {
                 String name = (reader4.isMissing("name") ? "-" : reader4.get("name"));
                 int admin_level = (reader4.isMissing("admin_level") ? -1 : reader4.getInt("admin_level"));
                 double density = (reader4.isMissing("density") ? -1.0 : reader4.getDouble("density"));
-                //admin_level;population;area;density
 
                 System.out.printf(Locale.US,"%d: %d Name: %s, Level: %d, Density: %f \n", id, parent, name, admin_level, density);
             }
