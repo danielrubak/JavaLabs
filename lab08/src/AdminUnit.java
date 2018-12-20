@@ -1,5 +1,3 @@
-package lab9;
-
 import java.util.List;
 
 public class AdminUnit {

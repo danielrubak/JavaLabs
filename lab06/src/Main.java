@@ -23,6 +23,7 @@ public class Main {
             CSVfiles[5] = "src/csv_utc8/titanic-part.csv";
         }
 
+        // if testsToRun[index] is 1 then the test for CSVfiles[index] file will be run
         int [] testsToRun = {0, 0, 0, 0, 1, 0};
         if ( testsToRun[0] == 1 ) {
             CSVReader reader0 = new CSVReader(CSVfiles[0],";",false);

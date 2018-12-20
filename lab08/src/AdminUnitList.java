@@ -1,10 +1,9 @@
-package lab9;
-
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.*;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AdminUnitList {
     List<AdminUnit> units = new ArrayList<>();
@@ -27,17 +26,6 @@ public class AdminUnitList {
             unit.getBbox().addPoint(reader.getDouble("x2"), reader.getDouble("y2"));
             unit.getBbox().addPoint(reader.getDouble("x3"), reader.getDouble("y3"));
             unit.getBbox().addPoint(reader.getDouble("x4"), reader.getDouble("y4"));
-
-            if ( unit.getName().equals("Kraków") ) {
-                System.out.println(reader.getDouble("x1"));
-                System.out.println(reader.getDouble("x2"));
-                System.out.println(reader.getDouble("x3"));
-                System.out.println(reader.getDouble("x4"));
-                System.out.println(reader.getDouble("y1"));
-                System.out.println(reader.getDouble("y2"));
-                System.out.println(reader.getDouble("y3"));
-                System.out.println(reader.getDouble("y4"));
-            }
 
             units.add(unit);
             unit2id.put(unit, reader.getLong("id"));
@@ -102,77 +90,6 @@ public class AdminUnitList {
                 } catch (RuntimeException ignored) {}
             }
         }
-        return result;
-    }
-
-    class AdminUnitComparator implements Comparator<AdminUnit> {
-        public int compare(AdminUnit o1, AdminUnit o2) {
-            return o1.getName().compareTo(o2.getName());
-        }
-    }
-
-    AdminUnitList sortInplaceByName(){
-        units.sort(new AdminUnitComparator());
-        return this;
-    }
-
-    AdminUnitList sortInplaceByArea(){
-        units.sort(new Comparator<AdminUnit>() {
-            @Override
-            public int compare(AdminUnit o1, AdminUnit o2) {
-                return Double.compare(o1.getArea(),o2.getArea());
-            }
-        });
-        return this;
-    }
-
-    AdminUnitList sortByArea() {
-        AdminUnitList result = new AdminUnitList();
-        result.units = new ArrayList<>(units);
-        result.sortInplaceByArea();
-        return result;
-    }
-
-    AdminUnitList sortInplaceByPopulation(){
-        units.sort((o1, o2) -> (Double.compare(o1.getPopulation(),o2.getPopulation())));
-        return this;
-    }
-
-    AdminUnitList sortInplace(Comparator<AdminUnit> cmp){
-        units.sort(cmp);
-        return this;
-    }
-
-    AdminUnitList sort(Comparator<AdminUnit> cmp){
-        AdminUnitList result = new AdminUnitList();
-        result.units = new ArrayList<>(units);
-        result.sortInplace(cmp);
-        return result;
-    }
-
-    AdminUnitList filter(Predicate<AdminUnit> pred) {
-        AdminUnitList result = new AdminUnitList();
-        result.units = new ArrayList<>(units);
-        result.units = units.stream().filter(pred).collect(Collectors.toList());
-        return result;
-    }
-
-    AdminUnitList filter(Predicate<AdminUnit> pred, int limit){
-        AdminUnitList result = new AdminUnitList();
-        result.units = new ArrayList<>(units);
-        result.units = units.stream().filter(pred).limit(limit).collect(Collectors.toList());
-        return result;
-    }
-
-    AdminUnitList filter(Predicate<AdminUnit> pred, int offset, int limit){
-        AdminUnitList result = new AdminUnitList();
-        result.units = new ArrayList<>(units);
-        result.units = units.stream().filter(pred).skip(offset).limit(limit).collect(Collectors.toList());
-        /*for (AdminUnit u : units) {
-            if (pred.test(u)) {
-                result.units.add(u);
-            }
-        }*/
         return result;
     }
 }

@@ -1,5 +1,3 @@
-package lab9;
-
 import java.util.Locale;
 
 public class BoundingBox {
@@ -23,8 +21,14 @@ public class BoundingBox {
         this.isEmpty = true;
     }
 
+    /**
+     * Enlarges BoundingBox so that it contains a point (x,y)
+     *
+     * @param x - coordinate x
+     * @param y - coordinate y
+     */
     void addPoint(double x, double y) {
-        if ( !this.isEmpty() ) {
+        if (!this.isEmpty()) {
             if (x > xmax)
                 xmax = x;
             if (x < xmin)
@@ -40,12 +44,26 @@ public class BoundingBox {
         isEmpty = false;
     }
 
+    /**
+     * Checks whether BoundingBox contains a point (x,y)
+     *
+     * @param x - coordinate x
+     * @param y - coordinate y
+     * @return
+     */
+
     boolean contains(double x, double y) {
         if (!isEmpty && ymin < y && ymax > y && xmin < x && xmax > x)
             return true;
         return false;
     }
 
+    /**
+     * Checks whether BoundingBox contains another bounding box object (x,y)
+     *
+     * @param bb - bounding box to compare with given BoundingBox
+     * @return
+     */
     boolean contains(BoundingBox bb) {
         if (!isEmpty && bb.xmin >= xmin && bb.xmax <= xmax && bb.ymin >= ymin && bb.ymax <= ymax)
             return true;
@@ -91,7 +109,7 @@ public class BoundingBox {
 
     @Override
     public String toString() {
-        if ( this.isEmpty() )
+        if (this.isEmpty())
             return "EmptyBoundigBox";
         return "BoundingBox{" +
                 "xmin=" + xmin +
@@ -125,12 +143,12 @@ public class BoundingBox {
         return Math.pow(Math.sin(val / 2), 2);
     }
 
+
+    // Well Known Text
     public String getWKT() {
         if (this.isEmpty())
             throw new RuntimeException("BoundingBox is empty!");
-        return String.format(Locale.US,"LINESTRING(%f %f, %f %f, %f %f, %f %f, %f %f)",
+        return String.format(Locale.US, "LINESTRING(%f %f, %f %f, %f %f, %f %f, %f %f)",
                 xmin, ymin, xmin, ymax, xmax, ymin, xmax, ymax, xmin, ymin);
     }
-
-
 }
