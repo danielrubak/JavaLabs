@@ -1,6 +1,9 @@
 import java.util.Scanner;
 import java.util.Locale;
 
+/**
+ * Problem 610A from http://codeforces.com/problemset/problem/610/A
+ */
 public class Pasha {
 
     public static void main(String[] args)
