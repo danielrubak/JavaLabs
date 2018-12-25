@@ -14,7 +14,6 @@ public class CSVReader {
     String delimiter;
     boolean hasHeader;
     String[] current;
-
     List<String> columnLabels = new ArrayList<>();
     Map<String, Integer> columnLabelsToInt = new HashMap<>();
 
@@ -26,20 +25,17 @@ public class CSVReader {
             parseHeader();
     }
 
+    public CSVReader(BufferedReader reader, String delimiter, boolean hasHeader) {
+        this.reader = reader;
+        this.delimiter = delimiter;
+    }
+
     public CSVReader(String filename, String delimiter) throws IOException {
-        this(filename, ",", true);
+        this(filename, delimiter, true);
     }
 
     public CSVReader(String filename) throws IOException {
-        this(filename, ",");
-    }
-
-    public CSVReader(BufferedReader reader, String delimiter, boolean hasHeader) throws IOException {
-        this.reader = reader;
-        this.delimiter = delimiter;
-        this.hasHeader = hasHeader;
-        if (hasHeader)
-            parseHeader();
+        this(filename, ",", true);
     }
 
     void parseHeader() throws IOException {
@@ -59,46 +55,82 @@ public class CSVReader {
         String line = reader.readLine();
         if (line == null) {
             return false;
-        } else {
-            current = line.split(delimiter);
-            return true;
         }
+        current = line.split(delimiter + "(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+        return true;
     }
 
-    int getInt(String columnLabel) throws NullPointerException {
-        int arrIndex = columnLabelsToInt.get(columnLabel);
-        return Integer.parseInt(current[arrIndex]);
+    int getInt(int columnIndex, int defaultValue) {
+        if (isMissing(columnIndex))
+            return defaultValue;
+        String elem = current[columnIndex];
+        return Integer.parseInt(elem);
+    }
+
+    int getInt(String columnLabel, int defaultValue) {
+        return getInt(columnLabelsToInt.get(columnLabel), defaultValue);
+    }
+
+    int getInt(String columnLabel) {
+        return getInt(columnLabel, 0);
     }
 
     int getInt(int columnIndex) {
-        return Integer.parseInt(current[columnIndex]);
+        return getInt(columnIndex, 0);
     }
 
-    String get(String columnLabel) {
-        int arrIndex = columnLabelsToInt.get(columnLabel);
-        return current[arrIndex];
-    }
-
-    String get(int columnIndex) {
+    String get (int columnIndex, String defaultValue) {
+        if (isMissing(columnIndex))
+            return defaultValue;
         return current[columnIndex];
     }
 
-    double getDouble(String columnLabel) {
-        int arrIndex = columnLabelsToInt.get(columnLabel);
-        return Double.parseDouble(current[arrIndex]);
+    String get(String columnLabel, String defaultValue) {
+        return get(columnLabelsToInt.get(columnLabel), defaultValue);
     }
 
-    double getDouble(int columnIndex) {
+    String get(String columnLabel) {
+        return get(columnLabel, "");
+    }
+
+    String get(int columnIndex) {
+        return get(columnIndex, "");
+    }
+
+    double getDouble(int columnIndex, double defaultValue) {
+        if (isMissing(columnIndex))
+            return defaultValue;
         return Double.parseDouble(current[columnIndex]);
     }
 
-    long getLong(String columnLabel) {
-        int arrIndex = columnLabelsToInt.get(columnLabel);
-        return Long.parseLong(current[arrIndex]);
+    double getDouble(String columnLabel, double defaultValue) {
+        return getDouble(columnLabelsToInt.get(columnLabel), defaultValue);
+    }
+
+    double getDouble(int columnIndex) {
+        return getDouble(columnIndex, 0.0);
+    }
+
+    double getDouble(String columnLabel) {
+        return getDouble(columnLabel, 0.0);
+    }
+
+    long getLong(int columnIndex, long defaultValue) {
+        if (isMissing(columnIndex))
+            return defaultValue;
+        return Long.parseLong(current[columnIndex]);
+    }
+
+    long getLong(String columnLabel, long defaultValue) {
+        return getLong(columnLabelsToInt.get(columnLabel), defaultValue);
     }
 
     long getLong(int columnIndex) {
-        return Long.parseLong(current[columnIndex]);
+        return getLong(columnIndex, 0);
+    }
+
+    long getLong(String columnLabel) {
+        return getLong(columnLabel, 0);
     }
 
     List<String> getColumnLabels() {
@@ -123,15 +155,23 @@ public class CSVReader {
     }
 
     LocalTime getTime(int columnIndex, String format) {
-        String timeToParse = current[columnIndex];
-        LocalTime time = LocalTime.parse(timeToParse, DateTimeFormatter.ofPattern(format));
-        return time;
+        if (isMissing(columnIndex))
+            return LocalTime.MIN;
+        return LocalTime.parse(current[columnIndex], DateTimeFormatter.ofPattern(format));
+    }
+
+    LocalTime getTime(String name, String format) {
+        return getTime(columnLabelsToInt.get(name), format);
     }
 
     LocalDate getDate(int columnIndex, String format) {
-        String dateToParse = current[columnIndex];
-        LocalDate date = LocalDate.parse(dateToParse, DateTimeFormatter.ofPattern(format));
-        return date;
+        if (isMissing(columnIndex))
+            return LocalDate.MIN;
+        return LocalDate.parse(current[columnIndex], DateTimeFormatter.ofPattern(format));
+    }
+
+    LocalDate getDate(String name, String format) {
+        return getDate(columnLabelsToInt.get(name), format);
     }
 
 }

@@ -24,7 +24,7 @@ public class Main {
         }
 
         // if testsToRun[index] is 1 then the test for CSVfiles[index] file will be run
-        int [] testsToRun = {0, 0, 0, 0, 1, 0};
+        int [] testsToRun = {1, 1, 1, 1, 1, 1};
         if ( testsToRun[0] == 1 ) {
             CSVReader reader0 = new CSVReader(CSVfiles[0],";",false);
             System.out.printf("Filename: %s\n", CSVfiles[0]);
@@ -72,10 +72,20 @@ public class Main {
         }
 
         if ( testsToRun[3] == 1 ) {
-            CSVReader reader3 = new CSVReader(CSVfiles[3],";",true);
+            CSVReader reader3 = new CSVReader(CSVfiles[3],",",true);
             System.out.printf("Filename: %s\n", CSVfiles[3]);
             while (reader3.next()) {
+                int date = reader3.getInt(1);
+                int day = reader3.getInt("day");
+                double period = reader3.getDouble("period");
+                double nswprice = reader3.getDouble("nswprice");
+                double nswdemand = reader3.getDouble("nswdemand");
+                double vicprice = reader3.getDouble("vicprice");
+                double vicdemand = reader3.getDouble("vicdemand");
+                double transfer = reader3.getDouble("transfer");
+                String classifier = reader3.get("class");
 
+                System.out.printf(Locale.US,"Day: %d, Period: %f, Prices: (%f, %f, %f, %f), Transfer: %f, Classifier: %s\n",day,period,nswprice,nswdemand,vicprice,vicdemand,transfer,classifier);
             }
             System.out.println();
         }
@@ -84,11 +94,11 @@ public class Main {
             CSVReader reader4 = new CSVReader(CSVfiles[4],";",true);
             System.out.printf("Filename: %s\n", CSVfiles[4]);
             while (reader4.next()) {
-                long id = (reader4.isMissing("id") ? 0 : reader4.getInt("id"));
-                long parent = (reader4.isMissing("parent") ? -1 : reader4.getInt("parent"));
-                String name = (reader4.isMissing("name") ? "-" : reader4.get("name"));
-                int admin_level = (reader4.isMissing("admin_level") ? -1 : reader4.getInt("admin_level"));
-                double density = (reader4.isMissing("density") ? -1.0 : reader4.getDouble("density"));
+                long id = reader4.getInt("id", -7);
+                long parent = reader4.getInt("parent", -7);
+                String name = reader4.get("name");
+                int admin_level = reader4.getInt("admin_level");
+                double density = reader4.getDouble("density");
 
                 System.out.printf(Locale.US,"%d: %d Name: %s, Level: %d, Density: %f \n", id, parent, name, admin_level, density);
             }
@@ -96,13 +106,26 @@ public class Main {
         }
 
         if ( testsToRun[5] == 1 ) {
-            CSVReader reader5 = new CSVReader(CSVfiles[5],";",true);
+            CSVReader reader5 = new CSVReader(CSVfiles[5],",",true);
             System.out.printf("Filename: %s\n", CSVfiles[5]);
             while (reader5.next()) {
+                //passengerId,survived,pclass,name,sex,age,sibSp,parch,ticket,fare,cabin,embarked
+                int passengerId = reader5.getInt("PassengerId");
+                int survived = reader5.getInt("Survived");
+                int pclass = reader5.getInt("Pclass");
+                String name = reader5.get("Name");
+                String sex = reader5.get("Sex");
+                int age = reader5.getInt("Age");
+                int sibSp = reader5.getInt("SibSp");
+                int parch = reader5.getInt("Parch");
+                String ticket = reader5.get("Ticket");
+                double fare = reader5.getDouble("Fare");
+                String cabin = reader5.get("Cabin");
+                String embarked = reader5.get("Embarked");
 
+                System.out.printf(Locale.US,"Name: %s, Ticket: %s\n", name, ticket);
             }
             System.out.println();
         }
-
     }
 }
