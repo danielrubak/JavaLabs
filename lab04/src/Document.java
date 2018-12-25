@@ -25,22 +25,23 @@ public class Document {
     }
 
     public void writeHTML(PrintStream out) {
-        out.print("<!DOCTYPE html>");
-        out.print("<html>");
-        out.print("<head>");
-        out.print("<meta charset=\"UTF-8\">");
-        out.printf("<title>%s</title>", title);
-        out.print("</head>");
-        out.print("<body>");
+        out.print("<!DOCTYPE html>\n");
+        out.print("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang = \"en\" lang = \"en\">\n");
+        out.print("<head>\n");
+        out.print("<meta charset=\"UTF-8\">\n");
+        out.printf("<title>%s</title>\n", title);
+        out.print("</head>\n");
+        out.print("<body>\n");
 
-        out.printf("<h1>%s</h2>", title);
+        out.printf("<div>\n<h1 align=\"left\">%s</h1>\n", title);
         photo.writeHTML(out);
+        out.printf("</div>");
 
         for (Section section : sections) {
             section.writeHTML(out);
         }
 
-        out.print("</body>");
+        out.print("</body>\n");
         out.print("</html>");
     }
 }

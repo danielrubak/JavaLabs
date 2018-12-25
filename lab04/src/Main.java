@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
-        Document cv = new Document("Daniel Rubak - CV");
+        Document cv = new Document("Daniel Rubak");
         cv.addPhoto("src\\Daniel_Rubak_do_CV.jpg");
         cv.addSection("Education")
                 .addParagraph("2013-2018 AGH University of Science and Technology - Automatics and Robotics")
