@@ -70,9 +70,9 @@ public class Tree implements XmasShape {
         yVectorLeft.addAll(yVectorRight);
 
         // debug mode
-        for ( int k = 0; k < xVectorLeft.size(); k++) {
+        /*for ( int k = 0; k < xVectorLeft.size(); k++) {
             System.out.println(xVectorLeft.get(k) + ", " + yVectorLeft.get(k));
-        }
+        }*/
 
         int[] xVec = xVectorLeft.stream().mapToInt(i -> i).toArray();
         int[] yVec = yVectorLeft.stream().mapToInt(i -> i).toArray();
@@ -81,6 +81,16 @@ public class Tree implements XmasShape {
         g2d.fillPolygon(xVec, yVec, xVec.length);
         g2d.setColor(lineColor);
         g2d.drawPolygon(xVec, yVec, xVec.length);
+
+        g2d.setColor(Color.white);
+        int snowX[] = {-500, 500, 500, -500};
+        int snowY[] = {20, 20, 100, 100};
+        g2d.fillPolygon(snowX, snowY, snowX.length);
+
+        g2d.setColor(new Color(139, 69, 19));
+        int rootX[] = {-15, 15, 15, -15};
+        int rootY[] = {0, 0, 45, 45};
+        g2d.fillPolygon(rootX, rootY, rootX.length);
     }
 
     @Override

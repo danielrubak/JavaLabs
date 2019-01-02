@@ -5,26 +5,22 @@ public class Star implements XmasShape {
     int x;
     int y;
     double scale;
+    int pointNum;
     Color fillColor;
     Color lineColor;
 
     @Override
     public void render(Graphics2D g2d) {
+        int xVector[] = {-1, 0, 1};
+        int yVector[] = {0, -5, 0};
 
-        int xPoints[] = {9, 15, 0, 18, 3};
-        int yPoints[] = {0, 18, 6, 6, 18};
-
-
-        GeneralPath star = new GeneralPath();
-
-        star.moveTo(xPoints[0] + x, yPoints[0] + y);
-        for (int i = 1; i < xPoints.length; i++) {
-            star.lineTo(xPoints[i] + x, yPoints[i] + y);
+        for (int i = 0; i < this.pointNum; i++) {
+            g2d.setColor(fillColor);
+            g2d.fillPolygon(xVector, yVector, xVector.length);
+            g2d.setColor(lineColor);
+            g2d.drawPolygon(xVector, yVector, xVector.length);
+            g2d.rotate(2*Math.PI/this.pointNum);
         }
-        star.closePath();
-
-        g2d.setColor(fillColor);
-        g2d.fill(star);
     }
 
     @Override
@@ -33,10 +29,11 @@ public class Star implements XmasShape {
         g2d.scale(scale,scale);
     }
 
-    public Star(int x, int y, double scale, Color fillColor, Color lineColor) {
+    public Star(int x, int y, double scale, int pointNum, Color fillColor, Color lineColor) {
         this.x = x;
         this.y = y;
         this.scale = scale;
+        this.pointNum = pointNum;
         this.fillColor = fillColor;
         this.lineColor = lineColor;
     }

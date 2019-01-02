@@ -24,13 +24,26 @@ public class Main {
         branches.add(branch2);
         branches.add(branch3);
         branches.add(branch4);
+
         Tree christmasTree = new Tree (500, 700, 1, new Color(15, 224, 95), new Color(15, 224, 95), branches);
-        //drawPanel.addShape(christmasTree);
+        drawPanel.addShape(christmasTree);
 
-        Bubble bubble = new Bubble(350, 600, 100, 100, 0.5, new Color(255, 255, 255), new Color(255, 105, 180));
-        //drawPanel.addShape(bubble);
+        Bubble bubble1 = new Bubble(350, 600, 100, 100, 0.5, new Color(255, 255, 255), new Color(255, 105, 180));
+        drawPanel.addShape(bubble1);
+        Bubble bubble2 = new Bubble(400, 470, 100, 100, 0.5, new Color(255, 255, 255), new Color(255, 105, 180));
+        drawPanel.addShape(bubble2);
+        Bubble bubble3 = new Bubble(660, 630, 100, 100, 0.5, new Color(255, 255, 255), new Color(255, 105, 180));
+        drawPanel.addShape(bubble3);
+        Bubble bubble4 = new Bubble(450, 300, 100, 100, 0.5, new Color(255, 255, 255), new Color(255, 105, 180));
+        drawPanel.addShape(bubble4);
+        Bubble bubble5 = new Bubble(580, 545, 100, 100, 0.5, new Color(255, 255, 255), new Color(255, 105, 180));
+        drawPanel.addShape(bubble5);
+        Bubble bubble6 = new Bubble(500, 200, 100, 100, 0.5, new Color(255, 255, 255), new Color(255, 105, 180));
+        drawPanel.addShape(bubble6);
+        Bubble bubble7 = new Bubble(540, 400, 100, 100, 0.5, new Color(255, 255, 255), new Color(255, 105, 180));
+        drawPanel.addShape(bubble7);
 
-        Star star = new Star(150,150,20, Color.yellow, Color.yellow);
+        Star star = new Star(500,120,9,5, Color.yellow, Color.yellow);
         drawPanel.addShape(star);
     }
 }
