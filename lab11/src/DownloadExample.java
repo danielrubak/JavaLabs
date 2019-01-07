@@ -9,7 +9,7 @@ import java.util.concurrent.Semaphore;
 public class DownloadExample {
     static Semaphore sem;
 
-    // lista plików do pobrania
+    // list of files to download
     static String[] toDownload = {
             "http://home.agh.edu.pl/pszwed/wyklad-c/01-jezyk-c-intro.pdf",
             "http://home.agh.edu.pl/~pszwed/wyklad-c/02-jezyk-c-podstawy-skladni.pdf",
@@ -53,6 +53,9 @@ public class DownloadExample {
 
     }
 
+    /**
+     * sequential downloading of files
+     */
     static void sequentialDownload(){
         sem = new Semaphore(0);
         double t1 = System.nanoTime()/1e6;
@@ -63,6 +66,10 @@ public class DownloadExample {
         System.out.printf(Locale.US,"t2-t1=%f\n",t2-t1);
     }
 
+    /**
+     * concurrent download of files
+     * @throws InterruptedException
+     */
     static void concurrentDownload() throws InterruptedException {
         sem = new Semaphore(0);
         double t1 = System.nanoTime()/1e6;
@@ -75,6 +82,7 @@ public class DownloadExample {
     }
 
     public static void main(String[] args) throws InterruptedException {
+        // perform both procedures only to compare download times
         sequentialDownload();
         concurrentDownload();
     }
