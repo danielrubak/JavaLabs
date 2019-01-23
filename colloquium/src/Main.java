@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static java.lang.System.out;
+import static java.lang.System.setErr;
 
 public class Main {
 
@@ -32,11 +33,28 @@ public class Main {
         boolean debugMode = false;
 
         // Exercise 1
-        // Task description (to do later)
+        // Load a file containing information on the number of births in the years 2000-2016, grouped by year, name and gender.
+        // Calculate the sum of all births.
+        // Determine which male and female names were the most popular in the years 2000-2016
+        // Find names which popularity in the years 2000-2016 has changed the most.
+
+        out.println("Exercise 1");
+        NameUnitList unitsList = new NameUnitList();
+        unitsList.read("src/imiona-2000-2016.csv");
+        out.println("Total birth in the years 2000-2016: " + unitsList.getBirthTotal());
+        out.println("The most popular male name in the years 2000-2016: " + unitsList.getMostPopularName("M"));
+        out.println("The most popular female name in the years 2000-2016: " + unitsList.getMostPopularName("K"));
+        Map<String, Double> result = null;
+        result = unitsList.getMostPercentageBirthDifference("M");
+        for (Map.Entry<String, Double> entry : result.entrySet())
+            out.println("The popularity of the name '" + entry.getKey() + "' has changed by " + entry.getValue() + "%.");
+        result = unitsList.getMostPercentageBirthDifference("K");
+        for (Map.Entry<String, Double> entry : result.entrySet())
+            out.println("The popularity of the name '" + entry.getKey() + "' has changed by " + entry.getValue() + "%.");
 
         // Exercise 2
         // Load a text file and calculate which word length occurred most often
-        System.out.println("\nExercise 2");
+        out.println("\nExercise 2");
         String inputFromFile = readFile("src/w-pustyni.txt", Charset.forName("cp1250")).toLowerCase();
         String[] wordsArray = inputFromFile.split("[\\s|\\r|\\,|\\.|\\-|\\!|\\—|\\?]+");
 
@@ -52,7 +70,7 @@ public class Main {
 
         if (debugMode) {
             for (Map.Entry<Integer, Integer> entry : wordLengthToOccur.entrySet())
-                System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+                out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
         }
 
         Map.Entry<Integer, Integer> maxEntry = null;
@@ -61,6 +79,6 @@ public class Main {
                 maxEntry = entry;
         }
 
-        System.out.println("Words of length '" + maxEntry.getKey() + "' occurred the most.");
+        out.println("Words of length '" + maxEntry.getKey() + "' occurred the most.");
     }
 }
