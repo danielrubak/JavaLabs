@@ -22,20 +22,18 @@ public class ExternalPanelsAgent extends Thread {
     }
 
     public void run() {
-        for (; ; ) {
-            ExternalCall ec = null;
+        while(true) {
             try {
-                ec = ec = input.take();
+                ExternalCall ec = input.take();
+
+                if (ec.atFloor == elevatorCar.getFloor()) continue;
+                if (ec.directionUp) {
+                    ElevatorStops.get().setLiftStopUp(ec.atFloor);
+                } else {
+                    ElevatorStops.get().setLiftStopDown(ec.atFloor);
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }
-            // ignorujemy wezwanie na piętro, na którym winda się znajduje
-            if (ec.atFloor == elevatorCar.getFloor()) continue;
-            // dodajemy do jednej z tablic zgłoszeń
-            if (ec.directionUp) {
-                ElevatorStops.get().setLiftStopUp(ec.atFloor);
-            } else {
-                ElevatorStops.get().setLiftStopDown(ec.atFloor);
             }
         }
     }

@@ -6,7 +6,6 @@ public class ElevatorStops {
     boolean stopsUp[] = new boolean[FLOORS];
     private static ElevatorStops instance = null;
 
-
     void setLiftStopUp(int floor) {
         stopsUp[floor] = true;
     }
@@ -36,7 +35,6 @@ public class ElevatorStops {
             if (stopsUp[i] || stopsDown[i]) return true;
         }
         return false;
-
     }
 
     int getMaxSetFloor() {
